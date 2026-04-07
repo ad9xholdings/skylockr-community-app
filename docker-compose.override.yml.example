@@ -1,0 +1,31 @@
+# SkyLockr Community App - Docker Compose Override
+# Use this file for local development customizations
+
+version: '3.8'
+
+services:
+  discourse:
+    environment:
+      - RAILS_ENV=development
+      - DISCOURSE_HOSTNAME=localhost
+      - UNICORN_WORKERS=2
+    volumes:
+      - ./discourse:/var/www/discourse:cached
+    command: bundle exec rails server -b 0.0.0.0 -p 80
+
+  postgres:
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tmp/postgres-data:/var/lib/postgresql/data
+
+  redis:
+    ports:
+      - "6379:6379"
+
+  # Add mailcatcher for development
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"

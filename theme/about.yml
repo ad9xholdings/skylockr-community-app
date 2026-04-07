@@ -1,0 +1,33 @@
+# SkyLockr Discourse Theme Configuration
+# Plugin metadata and settings
+
+# about:
+#   name: SkyLockr Theme
+#   version: 1.0.0
+#   authors: SkyLockr Team
+#   about: Official SkyLockr community theme with XRP Ledger integration
+#   theme_version: 1.0.0
+#   license_url: https://github.com/skylockr/theme/blob/main/LICENSE
+#   learn_more: https://skylockr.com
+
+# Define color scheme
+skylockr_color_scheme:
+  name: "SkyLockr Navy"
+  colors:
+    primary: "002145"           # Navy
+    secondary: "F5F7FA"         # White Soft
+    tertiary: "003594"          # Royal Blue
+    quaternary: "7F9695"        # Silver Green
+    header_background: "002145" # Navy
+    header_primary: "FFFFFF"    # White
+    highlight: "003594"         # Royal Blue
+    danger: "E74C3C"
+    success: "27AE60"
+    love: "E91E63"
+
+# Define font scheme
+skylockr_fonts:
+  heading_font: "Cinzel"
+  body_font: "Inter"
+
+# Custom CSS/SCSS will be in common.scss

@@ -1,0 +1,29 @@
+{
+  "name": "skylockr-community-theme",
+  "version": "1.0.0",
+  "description": "Official SkyLockr Discourse theme",
+  "author": "SkyLockr Team",
+  "license": "MIT",
+  "about_url": "https://github.com/skylockr/theme",
+  "license_url": "https://github.com/skylockr/theme/blob/main/LICENSE",
+  "theme_version": "1.0.0",
+  "assets": {
+    "skylockr-logo": "assets/logo.svg"
+  },
+  "color_schemes": {
+    "SkyLockr Navy": {
+      "primary": "002145",
+      "secondary": "F5F7FA",
+      "tertiary": "003594",
+      "quaternary": "7F9695",
+      "header_background": "002145",
+      "header_primary": "FFFFFF",
+      "highlight": "003594",
+      "danger": "E74C3C",
+      "success": "27AE60"
+    }
+  },
+  "modifiers": {
+    "serialize_topic_excerpts": true
+  }
+}

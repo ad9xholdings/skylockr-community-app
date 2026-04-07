@@ -1,0 +1,144 @@
+<!-- SkyLockr Theme Header Template -->
+<!-- Custom header with SkyLockr branding -->
+
+<script type="text/x-handlebars" data-template-name="components/skylockr-header">
+  <div class="skylockr-brand-bar">
+    <div class="jamzia-powered">
+      <span class="powered-badge">⚡ Powered by JamZia™ Networks</span>
+    </div>
+    <div class="brand-content">
+      <div class="skylockr-logo">
+        <div class="logo-icon">
+          <div class="triangle"></div>
+          <div class="orb"></div>
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+        </div>
+        <div class="logo-text">
+          <span class="brand-name">SkyLockr™</span>
+          <span class="tagline">Retail Creators Platform</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/skylockr-hero">
+  <div class="skylockr-hero">
+    <div class="hero-badge">⚡ Community App Core Deliverables</div>
+    <h1>SkyLockr™ Community</h1>
+    <p>Your Gateway to the JamZia™ Ecosystem</p>
+    <p class="hero-subtitle">Access the full stack of JamZia Networks - from Community to Republic, Metaverse to GodVerse.</p>
+    <div class="hero-cta">
+      {{#d-button class="btn-primary" action="scrollToMembership"}}
+        Choose Your Level
+      {{/d-button}}
+      {{#d-button class="btn-secondary" action="scrollToStack"}}
+        Explore Stack
+      {{/d-button}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/membership-tiers">
+  <div class="membership-section" id="membership">
+    <div class="section-header">
+      <h2>Choose Your Membership</h2>
+      <p>Four levels of access to the JamZia ecosystem</p>
+    </div>
+    
+    <div class="membership-tiers">
+      {{#each tiers as |tier|}}
+        <div class="tier-card {{tier.id}}">
+          <div class="tier-badge">{{tier.badge}}</div>
+          <div class="tier-icon">{{tier.icon}}</div>
+          <h3>{{tier.name}}</h3>
+          <div class="tier-price">{{tier.price}}</div>
+          <div class="tier-period">{{tier.period}}</div>
+          <ul class="tier-features">
+            {{#each tier.features as |feature|}}
+              <li>{{feature}}</li>
+            {{/each}}
+          </ul>
+          {{d-button 
+            class=tier.buttonClass
+            action="selectTier"
+            actionParam=tier.id
+            label=tier.buttonText
+          }}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/stack-access">
+  <div class="stack-access" id="stack">
+    <h2>JamZia™ Stack Access</h2>
+    <p>Direct login to each layer of the ecosystem</p>
+    
+    <div class="stack-grid">
+      {{#each stackItems as |item|}}
+        {{d-button 
+          class="stack-btn"
+          action="navigateToStack"
+          actionParam=item.id
+          icon=item.icon
+          translatedLabel=item.name
+        }}
+      {{/each}}
+    </div>
+  </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="components/xrp-wallet-connect">
+  <div class="xrp-wallet-connect-modal {{if connecting 'connecting'}}">
+    <div class="modal-header">
+      <h3>Connect XRP Wallet</h3>
+      <button class="close-btn" {{action "close"}}>×</button>
+    </div>
+    
+    <div class="modal-body">
+      {{#if connected}}
+        <div class="wallet-connected">
+          <div class="success-icon">✓</div>
+          <h4>Wallet Connected</h4>
+          <div class="wallet-details">
+            <p class="address">{{truncateAddress walletAddress}}</p>
+            <p class="balance">{{walletBalance}} XRP</p>
+            <span class="network-badge">{{network}}</span>
+          </div>
+          {{d-button 
+            class="btn-secondary"
+            action="disconnect"
+            label="Disconnect Wallet"
+          }}
+        </div>
+      {{else}}
+        <div class="wallet-options">
+          <p>Connect your XRP wallet to access SkyLockr features</p>
+          
+          {{d-button 
+            class="wallet-btn xumm"
+            action="connectXumm"
+            icon="mobile-alt"
+            label="Connect with XUMM"
+          }}
+          
+          {{d-button 
+            class="wallet-btn gem"
+            action="connectGem"
+            icon="gem"
+            label="Connect with GEM"
+          }}
+          
+          <div class="wallet-help">
+            <a href="https://xumm.app" target="_blank">
+              Don't have a wallet? Get XUMM →
+            </a>
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</script>

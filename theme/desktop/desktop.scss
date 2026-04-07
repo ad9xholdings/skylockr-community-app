@@ -1,0 +1,43 @@
+// SkyLockr Discourse Theme - Desktop SCSS
+// Desktop-specific styles
+
+.desktop-view {
+  // Larger hero on desktop
+  .skylockr-hero {
+    padding: 6rem 4rem;
+    
+    h1 {
+      font-size: 3.5rem;
+    }
+    
+    p {
+      font-size: 1.3rem;
+    }
+  }
+  
+  // Sidebar with XRP Wallet widget
+  .sidebar-wrapper {
+    .xrp-wallet-widget {
+      position: sticky;
+      top: 80px;
+    }
+  }
+  
+  // Topic list improvements
+  .topic-list {
+    .topic-list-body {
+      .topic-list-item {
+        padding: 1rem;
+      }
+    }
+  }
+  
+  // Navigation improvements
+  .nav-pills {
+    > li {
+      > a {
+        padding: 0.75rem 1.25rem;
+      }
+    }
+  }
+}
