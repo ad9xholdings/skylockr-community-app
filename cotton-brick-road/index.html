@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cotton Brick Road | Mrs. Cotton's Academy</title>
+  <style>
+    :root {
+      --skylockr-navy: #002145;
+      --skylockr-navy-light: #002D62;
+      --skylockr-royal: #003594;
+      --skylockr-metallic: #869397;
+      --skylockr-silver-green: #7F9695;
+      --cotton-gold: #D4AF37;
+      --cotton-cream: #FFF8DC;
+      --success: #28A745;
+      --warning: #FFC107;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, var(--skylockr-navy) 0%, var(--skylockr-navy-light) 100%);
+      min-height: 100vh;
+      color: white;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    .game-header {
+      background: rgba(0, 33, 69, 0.95);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--skylockr-royal);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .logo-section h1 {
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, var(--cotton-gold), #FFD700);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .daily-limits {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .limit-item {
+      background: rgba(255,255,255,0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .limit-item.warning {
+      background: rgba(255, 193, 7, 0.2);
+      border: 1px solid var(--warning);
+    }
+    
+    /* Main Game Area */
+    .game-container {
+      display: grid;
+      grid-template-columns: 250px 1fr 300px;
+      gap: 1rem;
+      padding: 1rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    
+    /* Left Panel: Player Avatar */
+    .avatar-panel {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    
+    .avatar-container {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 1rem;
+    }
+    
+    .player-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border: 4px solid var(--cotton-gold);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+    }
+    
+    .avatar-stage {
+      background: var(--skylockr-royal);
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .avatar-progress {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+    
+    .progress-bar {
+      background: rgba(255,255,255,0.1);
+      height: 8px;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      background: linear-gradient(90deg, var(--cotton-gold), #FFD700);
+      height: 100%;
+      width: 3%;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+    
+    /* Center Panel: Cotton Brick Road */
+    .road-panel {
+      background: rgba(255,255,255,0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: relative;
+      min-height: 600px;
+    }
+    
+    .road-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .road-header h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .road-progress {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+    
+    .brick {
+      filter: grayscale(0.3);
+      opacity: 0.6;
+    }
+    
+    .brick.completed {
+      filter: grayscale(0);
+      opacity: 1;
+    }
+    
+    .brick.current {
+      filter: grayscale(0);
+      opacity: 1;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .road-visual {
+      background: linear-gradient(to bottom, 
+        rgba(139, 90, 43, 0.3) 0%,
+        rgba(160, 82, 45, 0.4) 50%,
+        rgba(139, 90, 43, 0.3) 100%
+      );
+      border-radius: 12px;
+      padding: 2rem;
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Today's Creature Card */
+    .creature-spotlight {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 2px solid var(--cotton-gold);
+      margin-bottom: 1.5rem;
+    }
+    
+    .creature-spotlight h3 {
+      color: var(--cotton-gold);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    
+    .creature-image {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #FFD700, #4169E1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    
+    .creature-info h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .creature-colors {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+    
+    .color-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid white;
+    }
+    
+    .color-dot.yellow { background: #FFD700; }
+    .color-dot.blue { background: #4169E1; }
+    
+    .creature-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .stat {
+      background: rgba(255,255,255,0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+    }
+    
+    .meet-button {
+      background: linear-gradient(135deg, var(--skylockr-royal), var(--skylockr-navy-light));
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1rem;
+    }
+    
+    .meet-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 53, 148, 0.4);
+    }
+    
+    .meet-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Lockout Message */
+    .lockout-message {
+      background: rgba(255, 193, 7, 0.1);
+      border: 2px solid var(--warning);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+    
+    .lockout-message h4 {
+      color: var(--warning);
+      margin-bottom: 0.5rem;
+    }
+    
+    .countdown {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 1rem 0;
+      font-family: monospace;
+    }
+    
+    /* Right Panel: Ask Cuz */
+    .cuz-panel {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .cuz-header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .cuz-avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 0.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      border: 3px solid var(--cotton-gold);
+    }
+    
+    .cuz-header h3 {
+      color: var(--cotton-gold);
+      font-size: 1.2rem;
+    }
+    
+    .cuz-chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      max-height: 300px;
+    }
+    
+    .message {
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    .message.cuz {
+      background: rgba(0, 53, 148, 0.3);
+      margin-right: 2rem;
+    }
+    
+    .message.player {
+      background: rgba(212, 175, 55, 0.2);
+      margin-left: 2rem;
+      text-align: right;
+    }
+    
+    .chat-input-area {
+      padding: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .chat-input-area input {
+      flex: 1;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      padding: 0.8rem;
+      border-radius: 8px;
+      color: white;
+      font-size: 0.9rem;
+    }
+    
+    .chat-input-area input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+    
+    .chat-input-area button {
+      background: var(--skylockr-royal);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    
+    .question-limit {
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+    
+    /* Daily Status Bar */
+    .daily-status {
+      grid-column: 1 / -1;
+      background: rgba(0, 53, 148, 0.3);
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .status-item .icon {
+      font-size: 1.5rem;
+    }
+    
+    .session-timer {
+      background: rgba(255, 193, 7, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .game-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .avatar-panel, .cuz-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="game-header">
+    <div class="logo-section">
+      <span>🧙‍♀️</span>
+      <h1>Cotton Brick Road</h1>
+    </div>
+    <div class="daily-limits">
+      <div class="limit-item">
+        <span>🐸</span>
+        <span>Creatures: 2/5</span>
+      </div>
+      <div class="limit-item">
+        <span>💬</span>
+        <span>Ask Cuz: 3/10</span>
+      </div>
+      <div class="limit-item warning">
+        <span>⏱️</span>
+        <span>Time: 12/20 min</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Game Container -->
+  <div class="game-container">
+    <!-- Daily Status Bar -->
+    <div class="daily-status">
+      <div class="status-item">
+        <span class="icon">🧱</span>
+        <span>Brick 3 of 100</span>
+      </div>
+      <div class="status-item">
+        <span class="icon">🏰</span>
+        <span>Cotton Castle: 97 bricks away</span>
+      </div>
+      <div class="session-timer">
+        ⏱️ Session: 12:00 / 20:00
+      </div>
+      <div class="status-item">
+        <span class="icon">🌅</span>
+        <span>Next brick: Tomorrow 9 AM EST</span>
+      </div>
+    </div>
+
+    <!-- Left Panel: Player Avatar -->
+    <div class="avatar-panel">
+      <div class="avatar-container">
+        <div class="player-avatar">🧒</div>
+      </div>
+      <div class="avatar-stage">Stage: Sketch</div>
+      <div class="avatar-progress">
+        <p>Day 3 of 60+ to "Real"</p>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem;">Your avatar becomes more realistic each day!</p>
+      </div>
+    </div>
+
+    <!-- Center Panel: Cotton Brick Road -->
+    <div class="road-panel">
+      <div class="road-header">
+        <h2>🛤️ The Cotton Brick Road</h2>
+        <div class="road-progress">
+          <span class="brick completed">🧱</span>
+          <span class="brick completed">🧱</span>
+          <span class="brick completed">🧱</span>
+          <span class="brick current">🧱</span>
+          <span class="brick">⬜</span>
+          <span class="brick">⬜</span>
+          <span class="brick">⬜</span>
+          <span>...</span>
+          <span>🏰</span>
+        </div>
+        <p style="opacity: 0.8;">Travel one brick per day. No rushing, no endless scrolling.</p>
+      </div>
+
+      <div class="road-visual">
+        <!-- Today's Creature Spotlight -->
+        <div class="creature-spotlight">
+          <h3>✨ Today's Creature on the Road</h3>
+          <div class="creature-image">🐸</div>
+          <div class="creature-info">
+            <h4>Gold Ember</h4>
+            <div class="creature-colors">
+              <div class="color-dot yellow" title="Golden Yellow"></div>
+              <span>+</span>
+              <div class="color-dot blue" title="Soft Black"></div>
+            </div>
+            <p style="opacity: 0.8; font-size: 0.9rem;">Inspired by Phyllobates terribilis</p>
+            <div class="creature-stats">
+              <span class="stat">Realism: 2/10</span>
+              <span class="stat">Challenge: Match Colors</span>
+              <span class="stat">Reward: +12 pts</span>
+            </div>
+          </div>
+          <button class="meet-button" onclick="startEncounter()">
+            🎯 Meet Gold Ember on the Road
+          </button>
+        </div>
+
+        <!-- Lockout Message (shown when limit reached) -->
+        <div class="lockout-message" style="display: none;" id="lockout-panel">
+          <h4>🌙 Time to Rest, Young Explorer!</h4>
+          <p>Your brain needs sleep to remember what you learned today.</p>
+          <div class="countdown">14:32:18</div>
+          <p>until tomorrow's brick unlocks at 9 AM EST</p>
+          <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+            <button class="meet-button" style="background: rgba(255,255,255,0.1);">📚 Review Collection</button>
+            <button class="meet-button" style="background: rgba(255,255,255,0.1);">🚪 Exit to Academy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Ask Cuz -->
+    <div class="cuz-panel">
+      <div class="cuz-header">
+        <div class="cuz-avatar">🧙‍♂️</div>
+        <h3>Ask Cuz</h3>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Your guide on the road</p>
+      </div>
+      
+      <div class="cuz-chat">
+        <div class="chat-messages" id="chat-messages">
+          <div class="message cuz">
+            Hello! I'm Cuz. Ask me anything about creatures, phonics, or the road to Cotton Castle!
+          </div>
+          <div class="message player">
+            Why is the frog yellow and blue?
+          </div>
+          <div class="message cuz">
+            Great question! That Gold Ember uses <strong>warning colors</strong> — bright yellow says "I'm toxic!" to predators. The blue? That's structural color — tiny structures in its skin reflect light like a prism! 🐸✨
+          </div>
+        </div>
+        
+        <div class="chat-input-area">
+          <input type="text" id="cuz-input" placeholder="Ask Cuz anything...">
+          <button onclick="askCuz()">Ask</button>
+        </div>
+        
+        <div class="question-limit">
+          Questions today: 3/10 | Resets tomorrow 9 AM EST
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Session timer (20 minute limit)
+    let sessionTime = 12 * 60; // 12 minutes in seconds
+    const maxSessionTime = 20 * 60;
+    
+    function updateTimer() {
+      const minutes = Math.floor(sessionTime / 60);
+      const seconds = sessionTime % 60;
+      document.querySelector('.session-timer').textContent = 
+        `⏱️ Session: ${minutes}:${seconds.toString().padStart(2, '0')} / 20:00`;
+      
+      // Warnings at 15, 17, 19 minutes
+      if (sessionTime === 300) { // 5 min left
+        alert('⚠️ 5 minutes left! Start wrapping up your journey.');
+      }
+      if (sessionTime === 180) { // 3 min left
+        alert('⚠️ 3 minutes! Time to head back soon.');
+      }
+      if (sessionTime === 60) { // 1 min left
+        alert('⚠️ 1 minute remaining! Last chance to meet today\'s creature.');
+      }
+      
+      if (sessionTime >= maxSessionTime) {
+        showLockout();
+        return;
+      }
+      
+      sessionTime++;
+    }
+    
+    setInterval(updateTimer, 1000);
+    
+    function showLockout() {
+      document.getElementById('lockout-panel').style.display = 'block';
+      document.querySelector('.creature-spotlight').style.opacity = '0.3';
+      document.querySelector('.meet-button').disabled = true;
+    }
+    
+    function askCuz() {
+      const input = document.getElementById('cuz-input');
+      const message = input.value.trim();
+      if (!message) return;
+      
+      // Add player message
+      const chatMessages = document.getElementById('chat-messages');
+      chatMessages.innerHTML += `<div class="message player">${message}</div>`;
+      
+      // Simulate Cuz response
+      setTimeout(() => {
+        const responses = [
+          "That's a fascinating question! Let me think... The answer relates to how creatures adapt to their environment over thousands of years.",
+          "Great observation! Remember, every creature on Cotton Brick Road is inspired by real species. Would you like to learn more about their habitats?",
+          "You're getting close to understanding! Keep traveling the road and you'll discover the answer yourself. 🛤️",
+          "Mrs. Cotton taught me that one! The key is in the colors — nature uses them as signals. Can you guess what this frog is saying?"
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        chatMessages.innerHTML += `<div class="message cuz">${randomResponse}</div>`;
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000);
+      
+      input.value = '';
+    }
+    
+    function startEncounter() {
+      alert('🐸 Gold Ember appears on the Cotton Brick Road!\n\nChallenge: Match the warning colors\n\nTap the yellow and black dots in order to complete the encounter!');
+    }
+    
+    // Daily reset simulation
+    function checkDailyReset() {
+      const now = new Date();
+      const nextReset = new Date();
+      nextReset.setHours(9, 0, 0, 0);
+      if (nextReset <= now) nextReset.setDate(nextReset.getDate() + 1);
+      
+      const timeUntilReset = nextReset - now;
+      const hours = Math.floor(timeUntilReset / (1000 * 60 * 60));
+      const minutes = Math.floor((timeUntilReset % (1000 * 60 * 60)) / (1000 * 60));
+      
+      console.log(`Next reset in: ${hours}h ${minutes}m`);
+    }
+    
+    checkDailyReset();
+  </script>
+</body>
+</html>
