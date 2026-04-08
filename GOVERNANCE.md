@@ -200,6 +200,169 @@ This specification may be amended through the governance process defined herein:
 
 ---
 
+## 9. GOVERNANCE SAFEGUARDS
+
+### 9.1 Voting Lockups
+
+To prevent flash-loan governance attacks and ensure voter commitment:
+
+| Parameter | Requirement |
+|-----------|-------------|
+| **Minimum Stake Duration** | 7 days before voting |
+| **Recommended Stake Duration** | 30 days for full voting power |
+| **Flash Loan Protection** | Votes invalid if tokens acquired within 7 days of proposal |
+| **Delegation Lock** | Delegated tokens locked for duration of vote |
+
+### 9.2 Proposal Thresholds
+
+To prevent spam and ensure serious proposals:
+
+| Proposal Type | Token Threshold | Holding Duration |
+|---------------|-----------------|------------------|
+| **Standard Proposal** | 13% of circulating supply | 30 days minimum |
+| **Reserved Matter** | 13% of circulating supply | 60 days minimum |
+| **Emergency Proposal** | 5% of circulating supply | 7 days minimum |
+
+### 9.3 Supermajority Requirements
+
+Certain critical changes require enhanced approval:
+
+| Change Type | Approval Required | Quorum Required | Voting Period |
+|-------------|-------------------|-----------------|---------------|
+| **Standard Changes** | >50% Yes | 20% participation | 7 days |
+| **Charter Amendments** | >67% Yes | 33% participation | 14 days |
+| **Tokenomics Changes** | >67% Yes | 33% participation | 14 days |
+| **Emergency Actions** | >90% Yes | 20% participation | 24 hours |
+
+**Reserved Matters (Supermajority Required):**
+- Charter amendments
+- Token supply or emission changes
+- Conversion rate modifications
+- Treasury distribution beyond 24-month runway
+- Protocol architectural changes
+- Lockout period modifications
+
+### 9.4 Treasury Sustainability Guardrails
+
+Automatic protections to prevent treasury depletion:
+
+| Safeguard | Rule | Enforcement |
+|-----------|------|-------------|
+| **Minimum Reserve** | 24 months of distribution runway | Treasury blocks distributions below threshold |
+| **Maximum Distribution** | Cannot exceed 12 months of runway in single proposal | Proposal auto-fails if violation detected |
+| **Monthly Recalculation** | Reserve requirement updated based on trailing 3-month average | Automatic on-chain calculation |
+| **Emergency Freeze** | Treasury auto-pauses if reserve drops below 12 months | Multi-sig can override with 4-of-5 consensus |
+
+### 9.5 Emergency Protocol Safeguards
+
+**Emergency Pause Authority:**
+- **Trigger:** Critical security vulnerability, economic attack, system failure
+- **Authority:** 3-of-5 multi-sig can pause protocol
+- **Duration:** Maximum 14 days without DAO approval
+- **Restoration:** Requires DAO vote to resume normal operations
+
+**Emergency Proposal Fast-Track:**
+- 24-hour voting period
+- 90% approval threshold
+- Immediate execution upon passage
+- Post-emergency review within 30 days
+
+### 9.6 Delegation Safeguards
+
+| Parameter | Rule |
+|-----------|------|
+| **Delegation Enabled** | Yes |
+| **Transferable Delegation** | No (delegation is per-proposal) |
+| **Self-Delegation Default** | Tokens self-delegated unless specified otherwise |
+| **Delegation Lock** | Delegated tokens cannot be transferred during active vote |
+| **Delegation Cap** | Single address cannot receive >10% of voting power via delegation |
+
+---
+
+## 10. TOKEN ALLOCATION MODEL
+
+### 10.1 DAO Token Distribution
+
+**Total Supply:** 10,000,000 DAO Tokens
+
+| Allocation | Percentage | Amount | Purpose | Vesting |
+|------------|------------|--------|---------|---------|
+| **Founders/Team** | 20% | 2,000,000 | Long-term alignment | 48-month vesting, 12-month cliff |
+| **Treasury Reserve** | 30% | 3,000,000 | Future grants, ecosystem | DAO-governed unlock |
+| **Community Airdrop** | 25% | 2,500,000 | Decentralization | 25% at TGE, 75% over 12 months |
+| **Strategic Partners** | 15% | 1,500,000 | Key integrations | 24-month vesting |
+| **Early Contributors** | 10% | 1,000,000 | Development rewards | 50% at TGE, 50% over 12 months |
+
+### 10.2 Vesting Schedules
+
+**Founders/Team (48-month vesting, 12-month cliff):**
+- Month 0-12: 0% (cliff)
+- Month 12: 25% unlock
+- Month 13-48: Remaining 75% linear monthly
+
+**Strategic Partners (24-month vesting):**
+- Month 0: 10% unlock
+- Month 1-24: Remaining 90% linear monthly
+
+**Early Contributors:**
+- Month 0: 50% unlock
+- Month 1-12: Remaining 50% linear monthly
+
+**Community Airdrop:**
+- Month 0: 25% unlock
+- Month 1-12: Remaining 75% linear monthly
+
+### 10.3 SkyIvy Coin Distribution
+
+**Total Supply:** 1,000,000,000 SkyIvy
+
+| Allocation | Percentage | Amount | Purpose | Emission |
+|------------|------------|--------|---------|----------|
+| **Circulating at TGE** | 50% | 500,000,000 | Initial liquidity | Immediate |
+| **Creator Rewards** | 30% | 300,000,000 | 2% Ad9x revenue distribution | 10-year emission |
+| **Treasury Reserve** | 15% | 150,000,000 | Buybacks, incentives | DAO-governed |
+| **Ecosystem Grants** | 5% | 50,000,000 | Development, marketing | 5-year emission |
+
+### 10.4 Emission Schedules
+
+**Creator Rewards (300M over 10 years):**
+- Year 1: 50M (16.7%)
+- Year 2-5: 30M/year (10%)
+- Year 6-10: 20M/year (6.7%)
+- Emission reduces as ecosystem matures
+
+**Ecosystem Grants (50M over 5 years):**
+- Year 1: 15M (30%)
+- Year 2: 12M (24%)
+- Year 3: 10M (20%)
+- Year 4: 8M (16%)
+- Year 5: 5M (10%)
+
+### 10.5 Deflationary Mechanisms
+
+**Buyback and Burn:**
+- DAO can approve treasury SkyIvy buybacks
+- Burned tokens permanently removed from supply
+- Quarterly burn reports
+
+**Transaction Fees:**
+- 0.5% fee on SkyIvy transfers (if implemented)
+- Fee split: 50% to treasury, 50% burned
+
+---
+
+## Document Control
+
+| Element | Value |
+|---------|-------|
+| **Version** | 1.1 |
+| **Last Updated** | April 8, 2026 |
+| **Effective Date** | Upon DAO Genesis |
+| **Amendment History** | v1.0 (Initial), v1.1 (Added Safeguards & Allocation) |
+| **Next Review** | Month 24 (Autonomous Phase transition) |
+
+---
+
 **Document Status**: Finalized  
 **Effective Date**: Upon DAO deployment  
 **Legal Entity**: United Series of America Master DAO, LLC  
